@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photos - My Life in Paris</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Molly + Paris</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="blog.html">Blog</a>
+      <a href="photos.html" class="active">Photos</a>
+      <a href="videos.html">Videos</a>
+      <a href="ideas.html">Ideas</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Photo Gallery Grid -->
+    <section class="photo-gallery">
+      <div class="gallery-grid" id="photoGrid">
+        <!-- Sample photos to start with -->
+        <div class="photo-item" data-caption="Morning croissant at my favorite boulangerie">
+          <button class="delete-photo-btn" onclick="deletePhoto(this)" title="Delete photo">×</button>
+          <img src="https://images.unsplash.com/photo-1555507036-ab794f1df947?w=400&h=600&fit=crop" alt="Croissant and coffee" loading="lazy">
+          <div class="photo-overlay">
+            <p class="photo-caption">Morning croissant at my favorite boulangerie</p>
+          </div>
+        </div>
+
+        <div class="photo-item" data-caption="Sunset from my tiny apartment balcony">
+          <button class="delete-photo-btn" onclick="deletePhoto(this)" title="Delete photo">×</button>
+          <img src="https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=500&fit=crop" alt="Paris sunset" loading="lazy">
+          <div class="photo-overlay">
+            <p class="photo-caption">Sunset from my tiny apartment balcony</p>
+          </div>
+        </div>
+
+        <div class="photo-item" data-caption="Wandering through Montmartre on Sunday">
+          <button class="delete-photo-btn" onclick="deletePhoto(this)" title="Delete photo">×</button>
+          <img src="https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=400&fit=crop" alt="Montmartre streets" loading="lazy">
+          <div class="photo-overlay">
+            <p class="photo-caption">Wandering through Montmartre on Sunday</p>
+          </div>
+        </div>
+
+        <div class="photo-item" data-caption="The bookshop café in Belleville I discovered">
+          <button class="delete-photo-btn" onclick="deletePhoto(this)" title="Delete photo">×</button>
+          <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=550&fit=crop" alt="Cozy bookshop" loading="lazy">
+          <div class="photo-overlay">
+            <p class="photo-caption">The bookshop café in Belleville I discovered</p>
+          </div>
+        </div>
+
+        <div class="photo-item" data-caption="Fresh flowers at the local market">
+          <button class="delete-photo-btn" onclick="deletePhoto(this)" title="Delete photo">×</button>
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=450&fit=crop" alt="Market flowers" loading="lazy">
+          <div class="photo-overlay">
+            <p class="photo-caption">Fresh flowers at the local market</p>
+          </div>
+        </div>
+
+        <div class="photo-item" data-caption="Late night coding session with city lights">
+          <button class="delete-photo-btn" onclick="deletePhoto(this)" title="Delete photo">×</button>
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=350&fit=crop" alt="Night coding" loading="lazy">
+          <div class="photo-overlay">
+            <p class="photo-caption">Late night coding session with city lights</p>
+          </div>
+        </div>
+
+        <div class="photo-item" data-caption="Metro commute views I never get tired of">
+          <button class="delete-photo-btn" onclick="deletePhoto(this)" title="Delete photo">×</button>
+          <img src="https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=600&fit=crop" alt="Metro view" loading="lazy">
+          <div class="photo-overlay">
+            <p class="photo-caption">Metro commute views I never get tired of</p>
+          </div>
+        </div>
+
+        <div class="photo-item" data-caption="Perfect café au lait art">
+          <button class="delete-photo-btn" onclick="deletePhoto(this)" title="Delete photo">×</button>
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop" alt="Coffee art" loading="lazy">
+          <div class="photo-overlay">
+            <p class="photo-caption">Perfect café au lait art</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upload New Photos Section -->
+    <section class="upload-section">
+      <div class="upload-container">
+        <h3>Add New Memories</h3>
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-content">
+            <div class="upload-icon">📸</div>
+            <p class="upload-text">Drop photos here or click to browse</p>
+            <p class="upload-hint">You can select multiple photos at once</p>
+            <input type="file" id="photoInput" multiple accept="image/*" style="display: none;">
+            <button class="browse-btn" onclick="document.getElementById('photoInput').click()">Choose Photos</button>
+          </div>
+        </div>
+        
+        <!-- Caption Input (appears after photos are selected) -->
+        <div class="caption-section" id="captionSection" style="display: none;">
+          <h4>Add captions to your photos</h4>
+          <div id="captionInputs"></div>
+          <div class="upload-actions">
+            <button class="cancel-upload-btn" onclick="cancelUpload()">Cancel</button>
+            <button class="add-photos-btn" onclick="addPhotosToGallery()">Add to Gallery ✨</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Molly H. • Made with ❤️ in Paris</p>
+  </footer>
+
+  <script>
+    let selectedFiles = [];
+
+    // Drag and drop functionality
+    const uploadArea = document.getElementById('uploadArea');
+    const photoInput = document.getElementById('photoInput');
+
+    uploadArea.addEventListener('click', () => {
+      photoInput.click();
+    });
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('drag-over');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('drag-over');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('drag-over');
+      const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+      handleFileSelection(files);
+    });
+
+    photoInput.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files);
+      handleFileSelection(files);
+    });
+
+    function handleFileSelection(files) {
+      if (files.length === 0) return;
+      
+      selectedFiles = files;
+      showCaptionInputs(files);
+    }
+
+    function showCaptionInputs(files) {
+      const captionSection = document.getElementById('captionSection');
+      const captionInputs = document.getElementById('captionInputs');
+      
+      captionInputs.innerHTML = '';
+      
+      files.forEach((file, index) => {
+        const preview = document.createElement('div');
+        preview.className = 'caption-preview';
+        
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.className = 'preview-image';
+        
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = `Caption for photo ${index + 1}...`;
+        input.className = 'caption-input';
+        input.dataset.index = index;
+        
+        preview.appendChild(img);
+        preview.appendChild(input);
+        captionInputs.appendChild(preview);
+      });
+      
+      captionSection.style.display = 'block';
+      captionSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function cancelUpload() {
+      selectedFiles = [];
+      document.getElementById('captionSection').style.display = 'none';
+      document.getElementById('photoInput').value = '';
+      
+      // Clean up object URLs
+      document.querySelectorAll('.preview-image').forEach(img => {
+        URL.revokeObjectURL(img.src);
+      });
+    }
+
+    function addPhotosToGallery() {
+      const photoGrid = document.getElementById('photoGrid');
+      const captionInputs = document.querySelectorAll('.caption-input');
+      
+      selectedFiles.forEach((file, index) => {
+        const caption = captionInputs[index].value || 'A moment in Paris';
+        const photoUrl = URL.createObjectURL(file);
+        
+        const photoItem = document.createElement('div');
+        photoItem.className = 'photo-item';
+        photoItem.dataset.caption = caption;
+        
+        // Random height for masonry effect
+        const heights = [350, 400, 450, 500, 550, 600];
+        const randomHeight = heights[Math.floor(Math.random() * heights.length)];
+        
+        photoItem.innerHTML = `
+          <button class="delete-photo-btn" onclick="deletePhoto(this)" title="Delete photo">×</button>
+          <img src="${photoUrl}" alt="${caption}" loading="lazy" style="height: ${randomHeight}px; object-fit: cover;">
+          <div class="photo-overlay">
+            <p class="photo-caption">${caption}</p>
+          </div>
+        `;
+        
+        // Add with animation
+        photoItem.style.opacity = '0';
+        photoItem.style.transform = 'translateY(20px)';
+        photoGrid.appendChild(photoItem);
+        
+        // Trigger animation
+        setTimeout(() => {
+          photoItem.style.transition = 'all 0.5s ease';
+          photoItem.style.opacity = '1';
+          photoItem.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+      
+      // Reset upload section
+      cancelUpload();
+      showSuccessMessage(`Added ${selectedFiles.length} photo${selectedFiles.length > 1 ? 's' : ''} to your gallery!`);
+      
+      // Trigger grid rearrangement
+      setTimeout(reorganizeGrid, 500);
+    }
+
+    function deletePhoto(button) {
+      const photoItem = button.closest('.photo-item');
+      const caption = photoItem.dataset.caption;
+      
+      if (confirm(`Delete "${caption}"?`)) {
+        photoItem.style.transition = 'all 0.5s ease';
+        photoItem.style.opacity = '0';
+        photoItem.style.transform = 'scale(0.8)';
+        
+        setTimeout(() => {
+          photoItem.remove();
+          reorganizeGrid();
+        }, 500);
+      }
+    }
+
+    function reorganizeGrid() {
+      const grid = document.getElementById('photoGrid');
+      const items = Array.from(grid.children);
+      
+      // Shuffle array
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+      
+      // Reappend in new order
+      items.forEach(item => grid.appendChild(item));
+    }
+
+    function showSuccessMessage(text) {
+      const message = document.createElement('div');
+      message.className = 'success-message';
+      message.innerHTML = `✨ ${text} ✨`;
+      document.body.appendChild(message);
+
+      setTimeout(() => {
+        message.remove();
+      }, 3000);
+    }
+
+    // Auto-reorganize grid every 30 seconds for dynamic feel
+    setInterval(() => {
+      if (document.getElementById('photoGrid').children.length > 0) {
+        reorganizeGrid();
+      }
+    }, 30000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ideas - My Life in Paris</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Molly + Paris</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="blog.html">Blog</a>
+      <a href="photos.html">Photos</a>
+      <a href="videos.html">Videos</a>
+      <a href="ideas.html" class="active">Ideas</a>
+    </nav>
+  </header>
+
+  <main class="moodboard-main">
+    <!-- Control Bar -->
+    <div class="control-bar">
+      <div class="mode-controls">
+        <button id="editMode" class="mode-btn" onclick="setMode('edit')">
+          Edit 
+        </button>
+        <button id="saveMode" class="mode-btn active" onclick="setMode('save')">
+          Save 
+        </button>
+      </div>
+      
+      <div class="upload-controls" id="uploadControls" style="display: none;">
+        <input type="file" id="imageUpload" multiple accept="image/*" style="display: none;">
+        <button class="upload-btn" onclick="document.getElementById('imageUpload').click()">
+          Add Images
+        </button>
+        <button class="sticker-btn" onclick="showStickerPanel()">
+          Add Stickers
+        </button>
+        <button class="clear-btn" onclick="clearBoard()">
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticker Panel -->
+    <div class="sticker-panel" id="stickerPanel" style="display: none;">
+      <h3>Choose a Sticker</h3>
+      <div class="sticker-grid">
+        <span class="sticker-option" onclick="addSticker('💭')">💭</span>
+        <span class="sticker-option" onclick="addSticker('💡')">💡</span>
+        <span class="sticker-option" onclick="addSticker('✨')">✨</span>
+        <span class="sticker-option" onclick="addSticker('🌟')">🌟</span>
+        <span class="sticker-option" onclick="addSticker('💫')">💫</span>
+        <span class="sticker-option" onclick="addSticker('🎨')">🎨</span>
+        <span class="sticker-option" onclick="addSticker('🎭')">🎭</span>
+        <span class="sticker-option" onclick="addSticker('🎪')">🎪</span>
+        <span class="sticker-option" onclick="addSticker('🗼')">🗼</span>
+        <span class="sticker-option" onclick="addSticker('🥐')">🥐</span>
+        <span class="sticker-option" onclick="addSticker('☕')">☕</span>
+        <span class="sticker-option" onclick="addSticker('📚')">📚</span>
+        <span class="sticker-option" onclick="addSticker('💻')">💻</span>
+        <span class="sticker-option" onclick="addSticker('🌸')">🌸</span>
+        <span class="sticker-option" onclick="addSticker('🌙')">🌙</span>
+        <span class="sticker-option" onclick="addSticker('☁️')">☁️</span>
+        <span class="sticker-option" onclick="addSticker('🦋')">🦋</span>
+        <span class="sticker-option" onclick="addSticker('🌻')">🌻</span>
+        <span class="sticker-option" onclick="addSticker('🍃')">🍃</span>
+        <span class="sticker-option" onclick="addSticker('💌')">💌</span>
+      </div>
+      <button class="close-panel-btn" onclick="hideStickerPanel()">Close</button>
+    </div>
+
+    <!-- Mood Board Canvas -->
+    <div class="moodboard-canvas" id="moodboardCanvas">
+      <!-- Sample items to start with -->
+      <div class="moodboard-item image-item" style="left: 10%; top: 15%; width: 200px; height: 150px;">
+        <img src="https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=300&fit=crop" alt="Paris inspiration">
+        <div class="resize-handles">
+          <div class="resize-handle nw"></div>
+          <div class="resize-handle ne"></div>
+          <div class="resize-handle sw"></div>
+          <div class="resize-handle se"></div>
+        </div>
+        <button class="delete-item-btn" onclick="deleteItem(this.parentElement)">×</button>
+      </div>
+
+      <div class="moodboard-item sticker-item" style="left: 60%; top: 10%; font-size: 4rem;">
+        ✨
+        <div class="resize-handles">
+          <div class="resize-handle nw"></div>
+          <div class="resize-handle ne"></div>
+          <div class="resize-handle sw"></div>
+          <div class="resize-handle se"></div>
+        </div>
+        <button class="delete-item-btn" onclick="deleteItem(this.parentElement)">×</button>
+      </div>
+
+      <div class="moodboard-item image-item" style="left: 30%; top: 40%; width: 180px; height: 120px;">
+        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop" alt="Café vibes">
+        <div class="resize-handles">
+          <div class="resize-handle nw"></div>
+          <div class="resize-handle ne"></div>
+          <div class="resize-handle sw"></div>
+          <div class="resize-handle se"></div>
+        </div>
+        <button class="delete-item-btn" onclick="deleteItem(this.parentElement)">×</button>
+      </div>
+
+      <div class="moodboard-item sticker-item" style="left: 70%; top: 50%; font-size: 3rem;">
+        🗼
+        <div class="resize-handles">
+          <div class="resize-handle nw"></div>
+          <div class="resize-handle ne"></div>
+          <div class="resize-handle sw"></div>
+          <div class="resize-handle se"></div>
+        </div>
+        <button class="delete-item-btn" onclick="deleteItem(this.parentElement)">×</button>
+      </div>
+
+      <div class="moodboard-item sticker-item" style="left: 15%; top: 70%; font-size: 2.5rem;">
+        💡
+        <div class="resize-handles">
+          <div class="resize-handle nw"></div>
+          <div class="resize-handle ne"></div>
+          <div class="resize-handle sw"></div>
+          <div class="resize-handle se"></div>
+        </div>
+        <button class="delete-item-btn" onclick="deleteItem(this.parentElement)">×</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Molly H. • Made with ❤️ in Paris</p>
+  </footer>
+
+  <script>
+    let currentMode = 'edit';
+    let draggedElement = null;
+    let resizeElement = null;
+    let resizeDirection = null;
+    let startX, startY, startWidth, startHeight, startLeft, startTop;
+
+    function setMode(mode) {
+      currentMode = mode;
+      const editBtn = document.getElementById('editMode');
+      const saveBtn = document.getElementById('saveMode');
+      const uploadControls = document.getElementById('uploadControls');
+      const canvas = document.getElementById('moodboardCanvas');
+      const controlBar = document.querySelector('.control-bar');
+      
+      if (mode === 'edit') {
+        editBtn.classList.add('active');
+        saveBtn.classList.remove('active');
+        uploadControls.style.display = 'flex';
+        canvas.classList.remove('locked');
+        controlBar.classList.remove('save-mode');
+        enableInteractions();
+      } else {
+        saveBtn.classList.add('active');
+        editBtn.classList.remove('active');
+        uploadControls.style.display = 'none';
+        canvas.classList.add('locked');
+        controlBar.classList.add('save-mode');
+        disableInteractions();
+      }
+    }
+
+    function enableInteractions() {
+      document.querySelectorAll('.moodboard-item').forEach(item => {
+        item.style.cursor = 'move';
+        item.querySelector('.resize-handles').style.display = 'block';
+        item.querySelector('.delete-item-btn').style.display = 'block';
+      });
+    }
+
+    function disableInteractions() {
+      document.querySelectorAll('.moodboard-item').forEach(item => {
+        item.style.cursor = 'default';
+        item.querySelector('.resize-handles').style.display = 'none';
+        item.querySelector('.delete-item-btn').style.display = 'none';
+      });
+    }
+
+    // Image Upload
+    document.getElementById('imageUpload').addEventListener('change', function(e) {
+      Array.from(e.target.files).forEach(file => {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            addImageToBoard(event.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+
+    function addImageToBoard(src) {
+      const canvas = document.getElementById('moodboardCanvas');
+      const item = document.createElement('div');
+      item.className = 'moodboard-item image-item';
+      
+      // Random position
+      const left = Math.random() * 70;
+      const top = Math.random() * 60;
+      
+      item.style.left = left + '%';
+      item.style.top = top + '%';
+      item.style.width = '200px';
+      item.style.height = '150px';
+      
+      item.innerHTML = `
+        <img src="${src}" alt="Mood board image">
+        <div class="resize-handles">
+          <div class="resize-handle nw"></div>
+          <div class="resize-handle ne"></div>
+          <div class="resize-handle sw"></div>
+          <div class="resize-handle se"></div>
+        </div>
+        <button class="delete-item-btn" onclick="deleteItem(this.parentElement)">×</button>
+      `;
+      
+      canvas.appendChild(item);
+      setupDragAndResize(item);
+    }
+
+    function showStickerPanel() {
+      document.getElementById('stickerPanel').style.display = 'block';
+    }
+
+    function hideStickerPanel() {
+      document.getElementById('stickerPanel').style.display = 'none';
+    }
+
+    function addSticker(emoji) {
+      const canvas = document.getElementById('moodboardCanvas');
+      const item = document.createElement('div');
+      item.className = 'moodboard-item sticker-item';
+      
+      // Random position
+      const left = Math.random() * 80;
+      const top = Math.random() * 70;
+      
+      item.style.left = left + '%';
+      item.style.top = top + '%';
+      item.style.fontSize = '3rem';
+      
+      item.innerHTML = `
+        ${emoji}
+        <div class="resize-handles">
+          <div class="resize-handle nw"></div>
+          <div class="resize-handle ne"></div>
+          <div class="resize-handle sw"></div>
+          <div class="resize-handle se"></div>
+        </div>
+        <button class="delete-item-btn" onclick="deleteItem(this.parentElement)">×</button>
+      `;
+      
+      canvas.appendChild(item);
+      setupDragAndResize(item);
+      hideStickerPanel();
+    }
+
+    function deleteItem(item) {
+      if (currentMode === 'edit') {
+        item.remove();
+      }
+    }
+
+    function clearBoard() {
+      if (confirm('Are you sure you want to clear your entire mood board?')) {
+        document.getElementById('moodboardCanvas').innerHTML = '';
+      }
+    }
+
+    function setupDragAndResize(item) {
+      // Drag functionality
+      item.addEventListener('mousedown', startDrag);
+      item.addEventListener('touchstart', startDrag);
+      
+      // Resize functionality
+      item.querySelectorAll('.resize-handle').forEach(handle => {
+        handle.addEventListener('mousedown', startResize);
+        handle.addEventListener('touchstart', startResize);
+      });
+    }
+
+    function startDrag(e) {
+      if (currentMode !== 'edit') return;
+      if (e.target.classList.contains('resize-handle') || e.target.classList.contains('delete-item-btn')) return;
+      
+      e.preventDefault();
+      draggedElement = e.currentTarget;
+      
+      const clientX = e.clientX || e.touches[0].clientX;
+      const clientY = e.clientY || e.touches[0].clientY;
+      const rect = draggedElement.getBoundingClientRect();
+      
+      startX = clientX - rect.left;
+      startY = clientY - rect.top;
+      
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchmove', drag);
+      document.addEventListener('touchend', stopDrag);
+    }
+
+    function drag(e) {
+      if (!draggedElement) return;
+      
+      const clientX = e.clientX || e.touches[0].clientX;
+      const clientY = e.clientY || e.touches[0].clientY;
+      const canvas = document.getElementById('moodboardCanvas');
+      const canvasRect = canvas.getBoundingClientRect();
+      
+      const newLeft = ((clientX - canvasRect.left - startX) / canvasRect.width) * 100;
+      const newTop = ((clientY - canvasRect.top - startY) / canvasRect.height) * 100;
+      
+      draggedElement.style.left = Math.max(0, Math.min(95, newLeft)) + '%';
+      draggedElement.style.top = Math.max(0, Math.min(90, newTop)) + '%';
+    }
+
+    function stopDrag() {
+      draggedElement = null;
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', stopDrag);
+      document.removeEventListener('touchmove', drag);
+      document.removeEventListener('touchend', stopDrag);
+    }
+
+    function startResize(e) {
+      if (currentMode !== 'edit') return;
+      
+      e.preventDefault();
+      e.stopPropagation();
+      
+      resizeElement = e.target.closest('.moodboard-item');
+      resizeDirection = e.target.className.split(' ')[1];
+      
+      const clientX = e.clientX || e.touches[0].clientX;
+      const clientY = e.clientY || e.touches[0].clientY;
+      const rect = resizeElement.getBoundingClientRect();
+      
+      startX = clientX;
+      startY = clientY;
+      startWidth = rect.width;
+      startHeight = rect.height;
+      startLeft = rect.left;
+      startTop = rect.top;
+      
+      document.addEventListener('mousemove', resize);
+      document.addEventListener('mouseup', stopResize);
+      document.addEventListener('touchmove', resize);
+      document.addEventListener('touchend', stopResize);
+    }
+
+    function resize(e) {
+      if (!resizeElement) return;
+      
+      const clientX = e.clientX || e.touches[0].clientX;
+      const clientY = e.clientY || e.touches[0].clientY;
+      
+      const deltaX = clientX - startX;
+      const deltaY = clientY - startY;
+      
+      let newWidth = startWidth;
+      let newHeight = startHeight;
+      
+      if (resizeDirection.includes('e')) {
+        newWidth = startWidth + deltaX;
+      }
+      if (resizeDirection.includes('w')) {
+        newWidth = startWidth - deltaX;
+      }
+      if (resizeDirection.includes('s')) {
+        newHeight = startHeight + deltaY;
+      }
+      if (resizeDirection.includes('n')) {
+        newHeight = startHeight - deltaY;
+      }
+      
+      // Minimum size constraints
+      newWidth = Math.max(50, newWidth);
+      newHeight = Math.max(50, newHeight);
+      
+      if (resizeElement.classList.contains('sticker-item')) {
+        // For stickers, resize font instead
+        const fontSize = Math.max(1, Math.min(10, (newWidth / 50)));
+        resizeElement.style.fontSize = fontSize + 'rem';
+      } else {
+        resizeElement.style.width = newWidth + 'px';
+        resizeElement.style.height = newHeight + 'px';
+      }
+    }
+
+    function stopResize() {
+      resizeElement = null;
+      resizeDirection = null;
+      document.removeEventListener('mousemove', resize);
+      document.removeEventListener('mouseup', stopResize);
+      document.removeEventListener('touchmove', resize);
+      document.removeEventListener('touchend', stopResize);
+    }
+
+    // Initialize
+    document.querySelectorAll('.moodboard-item').forEach(setupDragAndResize);
+    setMode('save');
+  </script>
+</body>
+</html>
