@@ -1,10 +1,10 @@
-# My Life in Paris – Personal Website
+# My Life in Paris – Personal Website Design
 
-A personal creative site built from scratch to showcase my experiences living and working in Paris. Includes:
+A creative site built from scratch to showcase my experiences living and working in Paris in Summer 2025. Includes:
 
 - Blog entries
 - Photo gallery
 - Video snippets
 - Idea dump / creativity zone
 
-🗼 Made with ❤️ in Paris by Molly
+Made with ❤️ in Paris by Molly
