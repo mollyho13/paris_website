@@ -1,10 +1,16 @@
-# My Life in Paris – Personal Website Design
+# Molly + Paris: Personal Journal Website
 
-A creative site built from scratch to showcase my experiences living and working in Paris in Summer 2025. Includes:
+**A creative personal site I designed and built from scratch to document two months living and working in Paris (Summer 2025).**
 
-- Blog entries
-- Photo gallery
-- Video snippets
-- Idea dump / creativity zone
+**[Live site →](https://paris-website-one.vercel.app)** · Deployed on Vercel
 
-Made with ❤️ in Paris by Molly
+![Molly + Paris homepage](docs/screenshot.jpg)
+
+## Features
+- **Blog:** dated journal entries about life and work in Paris
+- **Photo gallery** and **video snippets**
+- **Ideas board:** a free-form "idea dump" and mood board
+- **Supabase integration (in progress):** functions to store blog posts, photo layouts and mood-board items in Postgres, with image uploads to Supabase Storage
+
+## Tech stack
+HTML5 · CSS3 · JavaScript · Supabase (Postgres + Storage) · Vercel
